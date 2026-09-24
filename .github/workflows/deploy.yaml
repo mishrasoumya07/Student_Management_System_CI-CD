@@ -21,7 +21,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-
   # ==========================================
   # STAGE 2: BUILD & PUSH BACKEND
   # ==========================================
@@ -46,12 +45,11 @@ jobs:
       - name: Build and Push Backend Image
         uses: docker/build-push-action@v6
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
+          context: ./Backend
+          file: ./Backend/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/sms-backend:v${{ github.run_number }}
-
 
   # ==========================================
   # STAGE 3: BUILD & PUSH FRONTEND
@@ -77,12 +75,11 @@ jobs:
       - name: Build and Push Frontend Image
         uses: docker/build-push-action@v6
         with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
+          context: ./Frontend
+          file: ./Frontend/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/sms-frontend:v${{ github.run_number }}
-
 
   # ==========================================
   # STAGE 4: DEPLOY BACKEND
@@ -125,7 +122,6 @@ jobs:
               ${{ secrets.DOCKERHUB_USERNAME }}/sms-backend:v${{ github.run_number }}
 
             echo "Backend deployed successfully"
-
 
   # ==========================================
   # STAGE 5: DEPLOY FRONTEND
